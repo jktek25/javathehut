@@ -2,7 +2,7 @@ name: Run with Maven
 
 on:
   pull_request:
-    types: [opened, syncronize, reopened]
+    types: [opened, synchronize, reopened]
     paths-ignore:
       - '**.md'
       - '.github/workflows/**'
@@ -15,22 +15,22 @@ jobs:
       checks: write
       pull-requests: write
     steps:
-      - name: Checkout repro
+      - name: Checkout repo
         uses: actions/checkout@v4
       
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: '26'
-          architecture: x86
+          distribution: 'temurin'
           cache: 'maven'
       
       - name: Build with Maven
         run: ./mvnw -B clean verify --no-transfer-progress
 
       - name: Upload Test Results
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-
-      
+          path: target/surefire-reports/
