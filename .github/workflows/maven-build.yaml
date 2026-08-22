@@ -1,6 +1,13 @@
 name: Run with Maven
 
 on:
+  push:
+    branches:
+      - '**'
+    paths-ignore:
+      - '**.md'
+      - '.github/workflows/**'
+
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
@@ -9,28 +16,33 @@ on:
 
 jobs:
   build_and_verify:
-    name: Run Merge Checks
+    name: Run GitHub Actions
     runs-on: ubuntu-latest
     permissions:
+      contents: read # Required for actions/checkout
+      issues: write # Any other permissions you need
       checks: write
       pull-requests: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
       
-      - name: Setup Java
-        uses: actions/setup-java@v4
+      - name: Setup Java (v26)
+        uses: actions/setup-java@v5
         with:
           java-version: '26'
           distribution: 'temurin'
           cache: 'maven'
-      
+
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
       - name: Build with Maven
         run: ./mvnw -B clean verify --no-transfer-progress
 
       - name: Upload Test Results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: target/surefire-reports/
