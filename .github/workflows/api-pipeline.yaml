@@ -94,13 +94,13 @@ jobs:
       - name: Run JMeter Load Test
         run: |
           echo "Running JMeter load test..."
-          jmeter -n -t jmeter/loadTest.jmx -l results.jtl -o report
+          jmeter -n -t jmeter/loadTest.jmx -l report/results.jtl
 
       - name: Upload JMeter Results
         uses: actions/upload-artifact@v4
         with:
           name: jmeter-results
-          path: report
+          path: report/results.jtl
 
       - name: Stop API
         run: |
