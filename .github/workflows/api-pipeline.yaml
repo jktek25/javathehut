@@ -39,16 +39,34 @@ jobs:
       - name: Start API
         run: |
           echo "Starting API..."
-          ./mvnw clean spring-boot:run &
-          echo $! > api_pid.txt
-          cat api_pid.txt
-          sleep 1  # Wait a moment for the API to start
+          echo "Java:"
+          java -version
+          echo "Maven:"
+          ./mvnw --version
 
+          echo "Building API..."
+          ./mvnw clean package -DskipTests
+
+          echo "Starting Spring Boot..."
+          # ./mvnw clean spring-boot:run &
+          # echo $! > api_pid.txt
+          java -jar target/CalculatorAPI-1.jar > api.log 2>&1 &
+          echo $! > api_pid.txt
+
+          echo "Spring Boot PID:"
+          cat api_pid.txt
+          sleep 3  # Wait a moment for the API to start
+
+          echo "===== PROCESS ====="
+          psgrep aux java || true
+
+          echo "===== PORT 8080 ====="
+          ss -ltnp | grep ':8080' || true
       - name: Wait for API to be ready
         run: |
           echo "Waiting for API to be ready..."
-          for _ in {1..30}; do
-            if curl -s http://localhost:8080/api/status | grep '"status": "UP"' > /dev/null; then
+          for _ in {1..60}; do
+            if curl -s http://localhost:8080/api/status | grep '"status":"UP"' > /dev/null; then
               echo "API is ready!"
               exit 0
             fi

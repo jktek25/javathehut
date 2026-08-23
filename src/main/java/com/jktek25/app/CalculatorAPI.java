@@ -30,21 +30,33 @@ public class CalculatorAPI {
     }
 
     /**
+     * Record class to represent a status response.
+     * @param status The status of the API.
+     */
+    public record StatusResponse(String status) { }
+
+    /**
      * Endpoint to return the status of the API.
      * @return A JSON string with the API status.
      */
     @GetMapping("/api/status")
-    public final String getStatus() {
-        return "{\"status\": \"UP\"}";
+    public final StatusResponse getStatus() {
+        return new StatusResponse("UP");
     }
+
+    /**
+     * Record class to represent a message response.
+     * @param message The message to be returned in the response.
+     */
+    public record MessageResponse(String message) { }
 
     /**
      * Endpoint to return a simple hello message.
      * @return A JSON string with a hello message.
      */
     @GetMapping("/api/hello")
-    public final String sayHello() {
-        return "{\"message\": \"Hello from Java API!\"}";
+    public final MessageResponse sayHello() {
+        return new MessageResponse("Hello from Java API!");
     }
 
     /**
