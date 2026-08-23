@@ -39,8 +39,13 @@ jobs:
       - name: Setup Install JMeter
         run: |
           echo "Installing JMeter..."
-          sudo apt-get update
-          sudo apt-get install -y jmeter
+          # sudo apt-get update
+          # sudo apt-get install -y jmeter
+          JMETER_VERSION=5.6.3
+          wget -q \
+            https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
+          tar -xzf apache-jmeter-${JMETER_VERSION}.tgz
+          echo "$PWD/apache-jmeter-${JMETER_VERSION}/bin" >> "$GITHUB_PATH"
 
       - name: Inspect JMeter
         run: |
