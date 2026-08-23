@@ -42,6 +42,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jmeter
 
+      - name: Inspect JMeter
+        run: |
+          jmeter --version
+          ls -l "$(which jmeter)"
+          dpkg -l | grep -i jmeter || true
+          
       - name: Start API
         run: |
           echo "Starting API..."
@@ -94,6 +100,7 @@ jobs:
       - name: Run JMeter Load Test
         run: |
           echo "Running JMeter load test..."
+          mkdir -p report
           jmeter -n -t jmeter/loadTest.jmx -l report/results.jtl
 
       - name: Upload JMeter Results
