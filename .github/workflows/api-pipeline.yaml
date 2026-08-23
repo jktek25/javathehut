@@ -1,0 +1,72 @@
+name: Run API with Maven Pipeline
+
+on:
+  push:
+    branches:
+      - '**'
+
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - '**.md'
+
+permissions: { }
+
+jobs:
+  build_and_verify:
+    name: Run GitHub Actions
+    runs-on: ubuntu-latest
+    timeout-minutes: 15  # <--- Cancels the entire job if it takes longer than 15 minutes
+    permissions:
+      contents: read # Required for actions/checkout
+      issues: write # Any other permissions you need
+      checks: write
+      pull-requests: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Java (v26)
+        uses: actions/setup-java@v5
+        with:
+          java-version: '26'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      - name: Start API
+        run: |
+          echo "Starting API..."
+          ./mvnw clean spring-boot:run &
+          echo $! > api_pid.txt
+          cat api_pid.txt
+          sleep 1  # Wait a moment for the API to start
+
+      - name: Wait for API to be ready
+        run: |
+          echo "Waiting for API to be ready..."
+          for _ in {1..30}; do
+            if curl -s http://localhost:8080/api/status | grep '"status": "UP"' > /dev/null; then
+              echo "API is ready!"
+              exit 0
+            fi
+            echo "API not ready yet, waiting..."
+            sleep 2
+          done
+          echo "API did not become ready in time."
+          exit 1
+
+      - name: Run API Tests
+        run: |
+          echo "Running API tests..."
+          mvn test
+
+      - name: Stop API
+        run: |
+          echo "Stopping API..."
+          if [ -f api_pid.txt ]; then
+            kill "$( < api_pid.txt)" || true
+            rm api_pid.txt
+          fi

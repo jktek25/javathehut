@@ -30,6 +30,15 @@ public class CalculatorAPI {
     }
 
     /**
+     * Endpoint to return the status of the API.
+     * @return A JSON string with the API status.
+     */
+    @GetMapping("/api/status")
+    public final String getStatus() {
+        return "{\"status\": \"UP\"}";
+    }
+
+    /**
      * Endpoint to return a simple hello message.
      * @return A JSON string with a hello message.
      */
