@@ -36,6 +36,12 @@ jobs:
       - name: Make mvnw executable
         run: chmod +x mvnw
 
+      - name: Setup Install JMeter
+        run: |
+          echo "Installing JMeter..."
+          sudo apt-get update
+          sudo apt-get install -y jmeter
+
       - name: Start API
         run: |
           echo "Starting API..."
@@ -44,9 +50,13 @@ jobs:
           echo "Maven:"
           ./mvnw --version
 
+      - name: Build with Maven
+        run: |
           echo "Building API..."
           ./mvnw clean package -DskipTests
 
+      - name: Start Spring Boot API
+        run: |
           echo "Starting Spring Boot..."
           # ./mvnw clean spring-boot:run &
           # echo $! > api_pid.txt
@@ -80,6 +90,17 @@ jobs:
         run: |
           echo "Running API tests..."
           mvn test
+
+      - name: Run JMeter Load Test
+        run: |
+          echo "Running JMeter load test..."
+          jmeter -n -t jmeter/loadTest.jmx -l results.jtl -e -o report
+
+      - name: Upload JMeter Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmeter-results
+          path: report
 
       - name: Stop API
         run: |

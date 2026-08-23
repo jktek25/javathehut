@@ -10,7 +10,12 @@ Java refresher
 - [x] Create GitHub actions to run build and tests
 - [x] Add API layer to call Calculator class
 - [x] Update Maven to build and run API
-- [ ] Add API tests
-- [ ] Update Maven for API tests
-- [ ] Add API Jmeter runs
+- [x] Add API tests
+- [x] Update Maven for API tests
+- [x] Add API Jmeter runs
+- [x] Add scripts for re-runs
 - [ ] Update Maven for JMeter tests
+
+- [ ] API test path exploits
+- [ ] API handling of large runs
+- [ ] Logging for per API runs
