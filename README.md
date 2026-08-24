@@ -1,6 +1,8 @@
 # javathehut
 Java refresher
 
+The intention of this project is to refresh my Java skills, setup components for a pipeline to ensure confidence in functionality and automated regression testing for basic funcitonality.
+
 - [x] Create Calculator class (add, subtract)
 - [x] Add recurrsion methods
 - [x] Add JUnit tests
@@ -10,7 +12,18 @@ Java refresher
 - [x] Create GitHub actions to run build and tests
 - [x] Add API layer to call Calculator class
 - [x] Update Maven to build and run API
-- [ ] Add API tests
-- [ ] Update Maven for API tests
-- [ ] Add API Jmeter runs
-- [ ] Update Maven for JMeter tests
+- [x] Add API tests
+- [x] Update Maven for API tests
+- [x] Add API Jmeter runs
+- [x] Add scripts for re-runs
+- [x] Update Maven for JMeter tests
+
+
+- [ ] Recursive API coverage
+- [ ] API test path exploits
+- [ ] API handling of large runs
+- [ ] Logging for per API runs
+- [ ] Add, sub for Jmeter testing
+- [ ] Multiply, Divide
+- [ ] Review safeguards for GitHub workflow runs
+- [ ] Add guard for recursive testing
