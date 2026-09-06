@@ -19,6 +19,7 @@ The intention of this project is to refresh my Java skills, setup components for
 - [x] Update Maven for JMeter tests
 
 
+- [ ] is math functions
 - [ ] Recursive API coverage
 - [ ] API test path exploits
 - [ ] API handling of large runs
