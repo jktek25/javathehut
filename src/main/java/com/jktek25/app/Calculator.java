@@ -1,5 +1,9 @@
 package com.jktek25.app;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * Calculator
  *
@@ -8,6 +12,7 @@ package com.jktek25.app;
  * and subtraction.
  */
 public class Calculator {
+    private static final Logger logger = LoggerFactory.getLogger(Calculator.class);
 
     /**
      * Adds two integers.
@@ -17,6 +22,7 @@ public class Calculator {
      * @return the sum of the two integers
      */
     public int add(final int num1, final int num2) {
+        logger.info("Adding {} and {}", num1, num2);
         return (num1 + num2);
     }
 
@@ -28,6 +34,7 @@ public class Calculator {
      * @return the difference of the two integers
      */
     public int sub(final int num1, final int num2) {
+        logger.info("Subtracting {} from {}", num2, num1);
         return (num1 - num2);
     }
 
@@ -39,6 +46,7 @@ public class Calculator {
      * @return the product of the two integers
      */
     public int multiply(final int num1, final int num2) {
+        logger.info("Multiplying {} and {}", num1, num2);
         return (num1 * num2);
     }
 
@@ -50,7 +58,9 @@ public class Calculator {
      * @return the quotient of the two integers
      */
     public int divide(final int num1, final int num2) {
+        logger.info("Dividing {} by {}", num1, num2);
         if (num2 == 0) {
+            logger.error("Attempted to divide by zero");
             throw new ArithmeticException("Division by zero is not allowed.");
         }
         return (num1 / num2);
@@ -63,6 +73,7 @@ public class Calculator {
      * @return the square of the integer
      */
     public int square(final int num) {
+        logger.info("Calculating square of {}", num);
         return (num * num);
     }
 
@@ -73,11 +84,14 @@ public class Calculator {
      * @return the factorial of the integer
      */
     public int factorial(final int num) {
+        logger.info("Calculating factorial of {}", num);
         if (num < 0) {
+            logger.error("Attempted to calculate factorial of negative number: {}", num);
             throw new IllegalArgumentException(
                 "Factorial is not defined for negative numbers.");
         }
         if (num == 0 || num == 1) {
+            logger.info("Base case reached for factorial of {}", num);
             return 1;
         }
         return num * this.factorial(num - 1);
@@ -183,6 +197,7 @@ public class Calculator {
      * @return true if the number is even, false otherwise
      */
     public boolean isEven(final int num) {
+        logger.info("Checking if {} is even", num);
         return (num % 2 == 0);
     }
 
@@ -193,6 +208,7 @@ public class Calculator {
      * @return true if the number is odd, false otherwise
      */
     public boolean isOdd(final int num) {
+        logger.info("Checking if {} is odd", num);
         return (num % 2 != 0);
     }
 

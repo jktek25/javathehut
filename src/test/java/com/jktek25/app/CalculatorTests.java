@@ -178,7 +178,7 @@ public class CalculatorTests {
     /**
      * Test isEven method of the Calculator class with various inputs and
      * expected results.
-     *
+     * 
      * @param num the integer to check
      * @param exp the expected result of checking if num is even
      */
