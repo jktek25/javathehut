@@ -19,12 +19,15 @@ The intention of this project is to refresh my Java skills, setup components for
 - [x] Update Maven for JMeter tests
 
 
-- [ ] is math functions
+- [x] is math functions
+- [x] API add, sub coverage
+- [x] API bad requests add, sub
 - [ ] Recursive API coverage
 - [ ] API test path exploits
 - [ ] API handling of large runs
+- [x] Logging for per Calculator runs
 - [ ] Logging for per API runs
 - [ ] Add, sub for Jmeter testing
 - [ ] Multiply, Divide
 - [ ] Review safeguards for GitHub workflow runs
-- [ ] Add guard for recursive testing
+- [x] Add guard for recursive testing
