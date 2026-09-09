@@ -90,6 +90,36 @@ public class CalculatorAPI {
     }
 
     /**
+     * Endpoint to multiply two numbers.
+     * @param num1 The first number.
+     * @param num2 The second number.
+     * @return A JSON string with the result of the multiplication.
+     */
+    @GetMapping("/api/multiply")
+    public final String multiplyNumbers(
+        @RequestParam(value = "num1", required = true) final int num1,
+        @RequestParam(value = "num2", required = true) final int num2) {
+        Calculator calculator = new Calculator();
+        int result = calculator.multiply(num1, num2);
+        return "{\"result\": " + result + "}";
+    }
+
+    /**
+     * Endpoint to divide two numbers.
+     * @param num1 The first number.
+     * @param num2 The second number.
+     * @return A JSON string with the result of the division.
+     */
+    @GetMapping("/api/divide")
+    public final String divideNumbers(
+        @RequestParam(value = "num1", required = true) final int num1,
+        @RequestParam(value = "num2", required = true) final int num2) {
+        Calculator calculator = new Calculator();
+        int result = calculator.divide(num1, num2);
+        return "{\"result\": " + result + "}";
+    }
+
+    /**
      * Exception handler for missing request parameters.
      * @param ex The exception thrown when a required parameter is missing.
      * @return A JSON string with an error message.
