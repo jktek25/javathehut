@@ -21,7 +21,7 @@ jobs:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
           git remote add gitlab \
-            "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@gitlab.com/YOUR_USERNAME/YOUR_PROJECT.git"
+            "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@gitlab.com/jktek25/javathehut.git"
 
           git push gitlab --all
           git push gitlab --tags
